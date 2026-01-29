@@ -1,103 +1,97 @@
 # trade-imports-gmr-perf-tests
 
-A JMeter based test runner for the CDP Platform.
+Performance tests for Trade Imports GMR services.
 
-- [Licence](#licence)
-  - [About the licence](#about-the-licence)
+- [trade-imports-gmr-finder](https://github.com/DEFRA/trade-imports-gmr-finder)
+- [trade-imports-gmr-processor](https://github.com/DEFRA/trade-imports-gmr-processor)
 
-## Build
+## Test strategy
 
-Test suites are built automatically by the [.github/workflows/publish.yml](.github/workflows/publish.yml) action whenever a change are committed to the `main` branch.
-A successful build results in a Docker container that is capable of running your tests on the CDP Platform and publishing the results to the CDP Portal.
+Execute different types of tests to achieve different goals:
 
-## Run
+- **Smoke**: verify user journey(s) function under minimal load.
+- **Load**: asses how the system performs under typical (average) load.
+- **Stress**: assess how the system performs under heavier (than average) load.
+- **Spike**: verify whether the system survives and performs under sudden and massive load.
 
-The performance test suites are designed to be run from the CDP Portal.
-The CDP Platform runs test suites in much the same way it runs any other service, it takes a docker image and runs it as an ECS task, automatically provisioning infrastructure as required.
+## Prerequisites
 
-## Local Testing with Docker Compose
+### Dependencies
 
-You can run the entire performance test stack locally using Docker Compose, including LocalStack, Redis, and the target service. This is useful for development, integration testing, or verifying your test scripts **before committing to `main`**, which will trigger GitHub Actions to build and publish the Docker image.
+Install the following:
 
-### Build the Docker image
+- [Node.js (npm)](https://nodejs.org/en/download)
+- [k6](https://k6.io/)
+- [Docker](https://docs.docker.com/engine/) (optional)
 
-```bash
-docker compose build --no-cache development
-```
+### Environment variables
 
-This ensures any changes to `entrypoint.sh` or other scripts are picked up properly.
+| Environment variable | Description                       |
+| -------------------- | --------------------------------- |
+| `ENVIRONMENT`        | Environment tests are running in. |
+| `PROFILE`            | Test profile to be executed.      |
 
----
+### Services
 
-### Start the full test stack
+See [trade-imports-gmr-local-env](https://github.com/DEFRA/trade-imports-gmr-local-env) for instructions.
 
-```bash
-docker compose up --build
-```
+## Tests
 
-This brings up:
+### Local
 
-* `development`: the container that runs your performance tests
-* `localstack`: simulates AWS S3, SNS, SQS, etc.
-* `redis`: backing service for cache
-* `service`: the application under test
-
-Once all services are healthy, your performance tests will automatically start.
-
----
-
-### Replace `service-name` in Compose File
-
-In the `docker-compose.yml`, make sure to replace:
-
-```yaml
-image: defradigital/service-name:${SERVICE_VERSION:-latest}
-```
-
-with the actual name of your service’s image.
-
-This is the service under test, which must expose a `/health` endpoint and listen on port `3000`.
-
----
-
-### Notes
-
-* S3 bucket is expected to be `s3://test-results`, automatically created inside LocalStack.
-* Logs and reports are written to `./reports` on your host.
-* `entrypoint.sh` should contain the logic to wait for dependencies and kick off the test run.
-* The `depends_on` healthchecks ensure services like `localstack` and `service` are ready before tests start.
-* If you make changes to test scripts or entrypoints, rerun with:
+Build as follows:
 
 ```bash
-docker compose up --build
+npm install
 ```
 
-## Local Testing with LocalStack
+Run as follows:
 
-### Build a new Docker image
-```
-docker build . -t my-performance-tests
-```
-### Create a Localstack bucket
-```
-aws --endpoint-url=localhost:4566 s3 mb s3://my-bucket
+```bash
+npm test
 ```
 
-### Run performance tests
+The test report is available from the `reports` directory. See [reports](./reports/index.html) in your browser.
 
-```
-docker run \
--e S3_ENDPOINT='http://host.docker.internal:4566' \
--e RESULTS_OUTPUT_S3_PATH='s3://my-bucket' \
--e AWS_ACCESS_KEY_ID='test' \
--e AWS_SECRET_ACCESS_KEY='test' \
--e AWS_SECRET_KEY='test' \
--e AWS_REGION='eu-west-2' \
-my-performance-tests
+### Docker
+
+Build as follows:
+
+```bash
+docker build . -t trade-imports-gmr-perf-tests
 ```
 
-docker run -e S3_ENDPOINT='http://host.docker.internal:4566' -e RESULTS_OUTPUT_S3_PATH='s3://cdp-infra-dev-test-results/cdp-portal-perf-tests/95a01432-8f47-40d2-8233-76514da2236a' -e AWS_ACCESS_KEY_ID='test' -e AWS_SECRET_ACCESS_KEY='test' -e AWS_SECRET_KEY='test' -e AWS_REGION='eu-west-2' -e ENVIRONMENT='perf-test' my-performance-tests
+Run as follows:
 
+```bash
+docker run -it --rm --net=host \
+  -e S3_ENDPOINT='http://localhost:4566' \
+  -e RESULTS_OUTPUT_S3_PATH='s3://reports' \
+  -e AWS_ACCESS_KEY_ID='test' \
+  -e AWS_DEFAULT_REGION='eu-west-2' \
+  -e AWS_SECRET_ACCESS_KEY='test' \
+  -e AWS_SECRET_KEY='test' \
+  -e AWS_REGION='eu-west-2' \
+  trade-imports-gmr-perf-tests
+```
+
+The test report is available from the `reports` S3 bucket. See [s3://reports](http://localhost:4566/reports/index.html) in your browser.
+
+## Linting and formatting
+
+[ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) are used for linting and formatting.
+
+Format all project files as follows:
+
+```bash
+npm run format
+```
+
+Fix linting of all project files as follows:
+
+```bash
+npm run lint:fix
+```
 
 ## Licence
 
