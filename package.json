@@ -1,0 +1,29 @@
+{
+  "name": "trade-imports-gmr-perf-tests",
+  "version": "0.1.0",
+  "description": "Performance tests for Trade Imports GMR services.",
+  "license": "OGL-UK-3.0",
+  "author": "Defra DDTS",
+  "scripts": {
+    "format": "npx prettier --write 'src/**/*.js' '**/*.{js,md,json,config.js}'",
+    "format:check": "npx prettier --check 'src/**/*.js' '**/*.{js,md,json,config.js}'",
+    "lint": "npx eslint .",
+    "lint:fix": "npx eslint . --fix",
+    "prepare": "npx husky",
+    "pretest": "npx rimraf reports && npx mkdirp reports",
+    "test": "k6 run src/tests/main.js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@types/k6": "^1.5.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "globals": "^17.2.0",
+    "husky": "^9.1.7",
+    "k6": "^0.0.0",
+    "mkdirp": "^3.0.1",
+    "prettier": "3.8.1",
+    "rimraf": "^6.1.2"
+  }
+}
