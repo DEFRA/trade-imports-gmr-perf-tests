@@ -16,4 +16,6 @@ WORKDIR /k6
 
 COPY . .
 
+RUN npm ci
+
 ENTRYPOINT [ "./scripts/entrypoint.sh" ]

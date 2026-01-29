@@ -2,7 +2,6 @@
 
 echo "run_id: $RUN_ID"
 
-npm ci
 npm run format:check
 npm run lint
 npm test || test_exit_code=$?
