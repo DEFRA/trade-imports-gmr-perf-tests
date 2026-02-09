@@ -7,17 +7,63 @@ import http from 'k6/http';
 
 export const options = profile;
 
-export default function () {
-  group('health checks for trade imports gmr services', function () {
-    const gmrFinderResponse = http.get(
-      `${env.tradeImportsGmrFinderUrl}/health`,
+export function customsDeclaration() {
+  group('send a customs declaration', function () {
+    const gmrFinderResponse = http.post(
+      `${env.tradeImportsGmrFinderUrl}/consumers/data-events-queue`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ResourceType: 'CustomsDeclaration',
+        },
+      },
     );
-    check(gmrFinderResponse, {'is status 200': (r) => r.status === 200});
+    console.log(gmrFinderResponse);
+    check(gmrFinderResponse, {'is status 200': (r) => r.status === 202});
 
-    const gmrProcessorResponse = http.get(
-      `${env.tradeImportsGmrProcessorUrl}/health`,
+    const gmrProcessorResponse = http.post(
+      `${env.tradeImportsGmrProcessorUrl}/consumers/data-events-queue`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ResourceType: 'CustomsDeclaration',
+        },
+      },
     );
-    check(gmrProcessorResponse, {'is status 200': (r) => r.status === 200});
+    console.log(gmrProcessorResponse);
+    check(gmrProcessorResponse, {'is status 200': (r) => r.status === 202});
+  });
+}
+
+export function importPreNotification() {
+  group('send an import pre notification', function () {
+    const gmrFinderResponse = http.post(
+      `${env.tradeImportsGmrFinderUrl}/consumers/data-events-queue`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ResourceType: 'ImportPreNotification',
+        },
+      },
+    );
+    console.log(gmrFinderResponse);
+    check(gmrFinderResponse, {'is status 200': (r) => r.status === 202});
+
+    const gmrProcessorResponse = http.post(
+      `${env.tradeImportsGmrProcessorUrl}/consumers/data-events-queue`,
+      {},
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          ResourceType: 'ImportPreNotification',
+        },
+      },
+    );
+    console.log(gmrProcessorResponse);
+    check(gmrProcessorResponse, {'is status 200': (r) => r.status === 202});
   });
 }
 

@@ -7,12 +7,23 @@ Performance tests for Trade Imports GMR services.
 
 ## Test strategy
 
+### Test types
+
 Execute different types of tests to achieve different goals:
 
 - **Smoke**: verify user journey(s) function under minimal load.
 - **Load**: asses how the system performs under typical (average) load.
 - **Stress**: assess how the system performs under heavier (than average) load.
 - **Spike**: verify whether the system survives and performs under sudden and massive load.
+
+### Expected volume of traffic
+
+See [non-functional requiremets](https://eaflood.atlassian.net/wiki/spaces/GFP/pages/6103433514/Non-Functional+Requirements) for more information.
+
+| Message type                     | Expected volume (per day) |
+| -------------------------------- | ------------------------- |
+| Customs Declaration (BTMS)       | 10000                     |
+| Import Pre Notification (IPAFFS) | 22000                     |
 
 ## Prerequisites
 
@@ -26,10 +37,12 @@ Install the following:
 
 ### Environment variables
 
-| Environment variable | Description                       |
-| -------------------- | --------------------------------- |
-| `ENVIRONMENT`        | Environment tests are running in. |
-| `PROFILE`            | Test profile to be executed.      |
+| Environment variable | Description                                                          |
+| -------------------- | -------------------------------------------------------------------- |
+| `ENVIRONMENT`        | Environment to run tests in. Default `local`.                        |
+| `PROFILE`            | Test profile to be executed. Default `smoke`.                        |
+| `STRESS_FACTOR`      | Factor to multiply average load by for stress test. Default `100`.   |
+| `SPIKE_VUS`          | Number of virtual users to ramp up to for spike test. Default `100`. |
 
 ### Services
 
