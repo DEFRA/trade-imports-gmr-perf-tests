@@ -4,14 +4,21 @@ import {htmlReport} from '../lib/k6-reporter-3.0.3.js';
 import {textSummary} from '../lib/k6-summary-0.1.0.js';
 import {check, group} from 'k6';
 import http from 'k6/http';
+import {customsDeclarations, importPreNotifications} from '../data/loader.js';
 
 export const options = profile;
 
 export function customsDeclaration() {
   group('send a customs declaration', function () {
+    const fixture =
+      customsDeclarations[
+        Math.floor(Math.random() * customsDeclarations.length)
+      ];
+    const body = JSON.stringify(fixture);
+
     const gmrFinderResponse = http.post(
       `${env.tradeImportsGmrFinderUrl}/consumers/data-events-queue`,
-      {},
+      body,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -19,12 +26,11 @@ export function customsDeclaration() {
         },
       },
     );
-    console.log(gmrFinderResponse);
     check(gmrFinderResponse, {'is status 200': (r) => r.status === 202});
 
     const gmrProcessorResponse = http.post(
       `${env.tradeImportsGmrProcessorUrl}/consumers/data-events-queue`,
-      {},
+      body,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -32,16 +38,21 @@ export function customsDeclaration() {
         },
       },
     );
-    console.log(gmrProcessorResponse);
     check(gmrProcessorResponse, {'is status 200': (r) => r.status === 202});
   });
 }
 
 export function importPreNotification() {
   group('send an import pre notification', function () {
+    const fixture =
+      importPreNotifications[
+        Math.floor(Math.random() * importPreNotifications.length)
+      ];
+    const body = JSON.stringify(fixture);
+
     const gmrFinderResponse = http.post(
       `${env.tradeImportsGmrFinderUrl}/consumers/data-events-queue`,
-      {},
+      body,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -49,12 +60,11 @@ export function importPreNotification() {
         },
       },
     );
-    console.log(gmrFinderResponse);
     check(gmrFinderResponse, {'is status 200': (r) => r.status === 202});
 
     const gmrProcessorResponse = http.post(
       `${env.tradeImportsGmrProcessorUrl}/consumers/data-events-queue`,
-      {},
+      body,
       {
         headers: {
           'Content-Type': 'application/json',
@@ -62,7 +72,6 @@ export function importPreNotification() {
         },
       },
     );
-    console.log(gmrProcessorResponse);
     check(gmrProcessorResponse, {'is status 200': (r) => r.status === 202});
   });
 }

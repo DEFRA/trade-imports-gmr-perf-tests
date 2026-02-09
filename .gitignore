@@ -1,2 +1,5 @@
 node_modules
 reports
+src/data/*.json
+tools/fixture-generator/bin/
+tools/fixture-generator/obj/

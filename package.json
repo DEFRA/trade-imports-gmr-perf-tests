@@ -11,7 +11,8 @@
     "lint:fix": "npx eslint . --fix",
     "prepare": "npx husky",
     "pretest": "npx rimraf reports && npx mkdirp reports",
-    "test": "k6 run src/tests/main.js"
+    "test": "k6 run src/tests/main.js",
+    "generate-fixtures": "dotnet run --project tools/fixture-generator -- src/data 150"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
