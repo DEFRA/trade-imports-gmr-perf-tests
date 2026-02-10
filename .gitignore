@@ -3,3 +3,4 @@ reports
 src/data/*.json
 tools/fixture-generator/bin/
 tools/fixture-generator/obj/
+.env
