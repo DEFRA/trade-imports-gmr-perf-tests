@@ -7,7 +7,7 @@ WORKDIR /generator
 COPY tools/fixture-generator/ .
 
 RUN dotnet restore
-RUN dotnet run --configuration Release --no-restore -- /output 16000
+RUN dotnet run --configuration Release --no-restore -- /output 5000
 
 # Stage 2: k6 test runner
 FROM grafana/k6:1.5.0

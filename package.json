@@ -12,7 +12,7 @@
     "prepare": "npx husky",
     "pretest": "npx rimraf reports && npx mkdirp reports",
     "test": "k6 run src/tests/main.js",
-    "generate-fixtures": "dotnet run --project tools/fixture-generator -- src/data 16000"
+    "generate-fixtures": "dotnet run --project tools/fixture-generator -- src/data 5000"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
