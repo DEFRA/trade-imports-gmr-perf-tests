@@ -34,8 +34,8 @@ const config = {
       btms: {
         exec: 'customsDeclaration',
         executor: 'constant-arrival-rate',
-        duration: '1m',
-        preAllocatedVUs: 1, // todo: (median_iteration_duration * rate) + constant_for_variance
+        duration: '10m',
+        preAllocatedVUs: 3,
         rate: BTMS_RATE * (__ENV.STRESS_FACTOR || 100),
         timeUnit: '1d',
       },
@@ -43,8 +43,8 @@ const config = {
       ipaffs: {
         exec: 'importPreNotification',
         executor: 'constant-arrival-rate',
-        duration: '1m',
-        preAllocatedVUs: 1, // todo: (median_iteration_duration * rate) + constant_for_variance
+        duration: '10m',
+        preAllocatedVUs: 3,
         rate: IPAFFS_RATE * (__ENV.STRESS_FACTOR || 100),
         timeUnit: '1d',
       },
