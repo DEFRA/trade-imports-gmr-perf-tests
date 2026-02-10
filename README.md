@@ -33,9 +33,20 @@ Install the following:
 
 - [Node.js (npm)](https://nodejs.org/en/download)
 - [k6](https://k6.io/)
+- [.NET 10 (SDK)](https://dotnet.microsoft.com/)
 - [Docker](https://docs.docker.com/engine/) (optional)
 
 ### Environment variables
+
+#### Secrets
+
+Create `.env` file in the root of the project and provide necessary secrets (copy `.env.example`).
+
+| Environment variable | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `DEFRA_NUGET_PAT`    | Classic GitHub token with `read:packages` permissions. |
+
+#### Configuration
 
 | Environment variable | Description                                                          |
 | -------------------- | -------------------------------------------------------------------- |
@@ -56,6 +67,12 @@ Build as follows:
 
 ```bash
 npm install
+```
+
+Generate test fixtures as follows:
+
+```bash
+npm run generate-fixtures
 ```
 
 Run as follows:
