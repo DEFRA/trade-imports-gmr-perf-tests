@@ -22,10 +22,10 @@ Execute different types of tests to achieve different goals:
 
 See [non-functional requiremets](https://eaflood.atlassian.net/wiki/spaces/GFP/pages/6103433514/Non-Functional+Requirements) for more information.
 
-| Message type                     | Expected volume (per day) |
-| -------------------------------- | ------------------------- |
-| Customs Declaration (BTMS)       | 10000                     |
-| Import Pre Notification (IPAFFS) | 22000                     |
+| System | Message type            | Expected volume (per day) |
+| ------ | ----------------------- | ------------------------- |
+| BTMS   | Customs Declaration     | 10000                     |
+| IPAFFS | Import Pre Notification | 22000                     |
 
 ## Prerequisites
 
