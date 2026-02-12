@@ -7,6 +7,8 @@ Performance tests for Trade Imports GMR services.
 
 ## Test strategy
 
+See [Confluence](https://eaflood.atlassian.net/wiki/x/HwI4gAE) for more information.
+
 ### Test types
 
 Execute different types of tests to achieve different goals:
