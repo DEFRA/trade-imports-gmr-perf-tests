@@ -48,12 +48,13 @@ Create `.env` file in the root of the project and provide necessary secrets (cop
 
 #### Configuration
 
-| Environment variable | Description                                                          |
-| -------------------- | -------------------------------------------------------------------- |
-| `ENVIRONMENT`        | Environment to run tests in. Default `local`.                        |
-| `PROFILE`            | Test profile to be executed. Default `smoke`.                        |
-| `STRESS_FACTOR`      | Factor to multiply average load by for stress test. Default `100`.   |
-| `SPIKE_VUS`          | Number of virtual users to ramp up to for spike test. Default `100`. |
+| Environment variable | Description                                                                                                                                  |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENVIRONMENT`        | Environment to run tests in. Default `local`.                                                                                                |
+| `PROFILE`            | Test profile to be executed. Default `smoke`.                                                                                                |
+| `PRE_ALLOCATED_VUS`  | Number of virtual users to initialize to meet target iteration rate. Default `1` for load test profile, default `3` for stress test profile. |
+| `STRESS_FACTOR`      | Factor to multiply average load by for stress test. Default `100`.                                                                           |
+| `SPIKE_VUS`          | Number of virtual users to ramp up to for spike test. Default `100`.                                                                         |
 
 ### Services
 
