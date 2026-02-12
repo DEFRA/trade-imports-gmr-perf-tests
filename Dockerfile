@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS fixture-generator
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS fixture-generator
 
 ARG DEFRA_NUGET_PAT
 ENV DEFRA_NUGET_PAT=${DEFRA_NUGET_PAT}
