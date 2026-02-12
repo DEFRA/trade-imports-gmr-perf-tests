@@ -20,7 +20,7 @@ Execute different types of tests to achieve different goals:
 
 ### Expected volume of traffic
 
-See [non-functional requiremets](https://eaflood.atlassian.net/wiki/spaces/GFP/pages/6103433514/Non-Functional+Requirements) for more information.
+See [non-functional requirements](https://eaflood.atlassian.net/wiki/x/KgHLawE) for more information.
 
 | System | Message type            | Expected volume (per day) |
 | ------ | ----------------------- | ------------------------- |
