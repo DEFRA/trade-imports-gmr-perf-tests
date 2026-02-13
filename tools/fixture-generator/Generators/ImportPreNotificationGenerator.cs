@@ -14,11 +14,13 @@ public static class  ImportPreNotificationGenerator
     public static List<ResourceEvent<ImportPreNotification>> Generate(int count)
     {
         var fixture = CreateFixture();
+        var statuses = Enum.GetValues<MrnStatus>();
         var results = new List<ResourceEvent<ImportPreNotification>>(count);
 
         for (var i = 0; i < count; i++)
         {
-            var mrn = MrnGenerator.Generate();
+            var status = statuses[i % statuses.Length];
+            var mrn = MrnGenerator.Generate(status);
             var chedRef = GenerateRandomReference();
 
             var importPreNotification = fixture.Build<ImportPreNotification>()
