@@ -1,6 +1,6 @@
 {
   "name": "trade-imports-gmr-perf-tests",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Performance tests for Trade Imports GMR services.",
   "license": "OGL-UK-3.0",
   "author": "Defra DDTS",
@@ -11,7 +11,8 @@
     "lint:fix": "npx eslint . --fix",
     "prepare": "npx husky",
     "pretest": "npx rimraf reports && npx mkdirp reports",
-    "test": "k6 run src/tests/main.js"
+    "test": "k6 run src/tests/main.js",
+    "generate-fixtures": "dotnet run --project tools/fixture-generator -- src/data 5000"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

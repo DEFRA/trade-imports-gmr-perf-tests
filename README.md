@@ -7,12 +7,25 @@ Performance tests for Trade Imports GMR services.
 
 ## Test strategy
 
+See [Confluence](https://eaflood.atlassian.net/wiki/x/HwI4gAE) for more information.
+
+### Test types
+
 Execute different types of tests to achieve different goals:
 
 - **Smoke**: verify user journey(s) function under minimal load.
 - **Load**: asses how the system performs under typical (average) load.
 - **Stress**: assess how the system performs under heavier (than average) load.
 - **Spike**: verify whether the system survives and performs under sudden and massive load.
+
+### Expected volume of traffic
+
+See [non-functional requirements](https://eaflood.atlassian.net/wiki/x/KgHLawE) for more information.
+
+| System | Message type            | Expected volume (per day) |
+| ------ | ----------------------- | ------------------------- |
+| BTMS   | Customs Declaration     | 10000                     |
+| IPAFFS | Import Pre Notification | 22000                     |
 
 ## Prerequisites
 
@@ -22,14 +35,28 @@ Install the following:
 
 - [Node.js (npm)](https://nodejs.org/en/download)
 - [k6](https://k6.io/)
+- [.NET 10 (SDK)](https://dotnet.microsoft.com/)
 - [Docker](https://docs.docker.com/engine/) (optional)
 
 ### Environment variables
 
-| Environment variable | Description                       |
-| -------------------- | --------------------------------- |
-| `ENVIRONMENT`        | Environment tests are running in. |
-| `PROFILE`            | Test profile to be executed.      |
+#### Secrets
+
+Create `.env` file in the root of the project and provide necessary secrets (copy `.env.example`).
+
+| Environment variable | Description                                            |
+| -------------------- | ------------------------------------------------------ |
+| `DEFRA_NUGET_PAT`    | Classic GitHub token with `read:packages` permissions. |
+
+#### Configuration
+
+| Environment variable | Description                                                                                                                                  |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ENVIRONMENT`        | Environment to run tests in. Default `local`.                                                                                                |
+| `PROFILE`            | Test profile to be executed. Default `smoke`.                                                                                                |
+| `PRE_ALLOCATED_VUS`  | Number of virtual users to initialize to meet target iteration rate. Default `1` for load test profile, default `3` for stress test profile. |
+| `STRESS_FACTOR`      | Factor to multiply average load by for stress test. Default `100`.                                                                           |
+| `SPIKE_VUS`          | Number of virtual users to ramp up to for spike test. Default `100`.                                                                         |
 
 ### Services
 
@@ -43,6 +70,12 @@ Build as follows:
 
 ```bash
 npm install
+```
+
+Generate test fixtures as follows:
+
+```bash
+npm run generate-fixtures
 ```
 
 Run as follows:
