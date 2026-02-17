@@ -1,6 +1,6 @@
 {
   "name": "trade-imports-gmr-perf-tests",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "description": "Performance tests for Trade Imports GMR services.",
   "license": "OGL-UK-3.0",
   "author": "Defra DDTS",
