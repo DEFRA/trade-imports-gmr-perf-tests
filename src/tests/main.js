@@ -11,6 +11,19 @@ export const options = profile;
 
 const encodedCredentials = encoding.b64encode('test:test');
 
+export function setup() {
+  const response = http.del(
+    `${env.tradeImportsGmrFinderUrl}/polling-queue/items`,
+    null,
+    {
+      headers: {
+        Authorization: `Basic ${encodedCredentials}`,
+      },
+    },
+  );
+  check(response, {'is status 200': (r) => r.status === 200});
+}
+
 export function customsDeclaration() {
   group('send a customs declaration', function () {
     const fixture =
