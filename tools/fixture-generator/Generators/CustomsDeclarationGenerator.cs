@@ -8,11 +8,11 @@ namespace FixtureGenerator.Generators;
 
 public static class CustomsDeclarationGenerator
 {
-    public static List<ResourceEvent<CustomsDeclaration>> Generate(int count, List<string> chedReferences)
+    public static List<ResourceEvent<CustomsDeclarationEvent>> Generate(int count, List<string> chedReferences)
     {
         var fixture = CreateFixture();
         var statuses = Enum.GetValues<MrnStatus>();
-        var results = new List<ResourceEvent<CustomsDeclaration>>(count);
+        var results = new List<ResourceEvent<CustomsDeclarationEvent>>(count);
 
         for (var i = 0; i < count; i++)
         {
@@ -39,12 +39,12 @@ public static class CustomsDeclarationGenerator
                 .With(cr => cr.GoodsLocationCode, "POOPOOPOOGVM")
                 .Create();
 
-            var customsDeclaration = fixture.Build<CustomsDeclaration>()
+            var customsDeclaration = fixture.Build<CustomsDeclarationEvent>()
                 .With(c => c.ClearanceDecision, clearanceDecision)
                 .With(c => c.ClearanceRequest, clearanceRequest)
                 .Create();
 
-            var resourceEvent = fixture.Build<ResourceEvent<CustomsDeclaration>>()
+            var resourceEvent = fixture.Build<ResourceEvent<CustomsDeclarationEvent>>()
                 .With(r => r.ResourceType, ResourceEventResourceTypes.CustomsDeclaration)
                 .With(r => r.ResourceId, mrn)
                 .With(r => r.Resource, customsDeclaration)

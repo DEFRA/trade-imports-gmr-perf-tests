@@ -11,11 +11,11 @@ public static class  ImportPreNotificationGenerator
 {
     private static readonly string[] ChedTypes = ["CHEDP", "CHEDPP", "CHEDA", "CHEDD"];
 
-    public static List<ResourceEvent<ImportPreNotification>> Generate(int count)
+    public static List<ResourceEvent<ImportPreNotificationEvent>> Generate(int count)
     {
         var fixture = CreateFixture();
         var statuses = Enum.GetValues<MrnStatus>();
-        var results = new List<ResourceEvent<ImportPreNotification>>(count);
+        var results = new List<ResourceEvent<ImportPreNotificationEvent>>(count);
 
         for (var i = 0; i < count; i++)
         {
@@ -25,16 +25,19 @@ public static class  ImportPreNotificationGenerator
 
             var importPreNotification = fixture.Build<ImportPreNotification>()
                 .With(x => x.ReferenceNumber, chedRef)
-                .With(x => x.ExternalReferences, new[]
-                {
-                    new ExternalReference { Reference = mrn, System = "NCTS" }
-                })
+                .With(x => x.ExternalReferences, [new ExternalReference { Reference = mrn, System = "NCTS" }])
                 .Create();
 
-            var resourceEvent = fixture.Build<ResourceEvent<ImportPreNotification>>()
+            var resourceEvent = fixture.Build<ResourceEvent<ImportPreNotificationEvent>>()
                 .With(r => r.ResourceType, ResourceEventResourceTypes.ImportPreNotification)
                 .With(r => r.ResourceId, chedRef)
-                .With(r => r.Resource, importPreNotification)
+                .With(
+                    r => r.Resource,
+                    new ImportPreNotificationEvent {
+                        Id = chedRef,
+                        ImportPreNotification = importPreNotification
+                    }
+                )
                 .Create();
 
             results.Add(resourceEvent);
