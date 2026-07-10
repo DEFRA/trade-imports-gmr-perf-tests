@@ -10,7 +10,7 @@ RUN --mount=type=secret,id=DEFRA_NUGET_PAT \
 RUN dotnet run --configuration Release --no-restore -- /output 5000
 
 # Stage 2: k6 test runner
-FROM grafana/k6:1.5.0
+FROM grafana/k6:2.1.0
 
 ENV TZ="Europe/London"
 
