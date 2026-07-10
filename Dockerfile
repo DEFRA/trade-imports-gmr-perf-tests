@@ -1,12 +1,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine AS fixture-generator
 
-ARG DEFRA_NUGET_PAT
-ENV DEFRA_NUGET_PAT=${DEFRA_NUGET_PAT}
-
 WORKDIR /generator
 COPY tools/fixture-generator/ .
 
-RUN dotnet restore
+RUN --mount=type=secret,id=DEFRA_NUGET_PAT \
+  DEFRA_NUGET_PAT="$(cat /run/secrets/DEFRA_NUGET_PAT)" \
+  dotnet restore
+
 RUN dotnet run --configuration Release --no-restore -- /output 5000
 
 # Stage 2: k6 test runner
