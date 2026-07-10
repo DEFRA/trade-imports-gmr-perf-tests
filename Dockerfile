@@ -30,5 +30,7 @@ COPY . .
 COPY --from=fixture-generator /output/ ./src/data/
 
 RUN npm ci
+RUN npm run format:check
+RUN npm run lint
 
 ENTRYPOINT [ "./scripts/entrypoint.sh" ]
