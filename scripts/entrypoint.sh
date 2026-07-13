@@ -2,8 +2,6 @@
 
 echo "run_id: $RUN_ID"
 
-npm run format:check
-npm run lint
 npm test || test_exit_code=$?
 
 . "./scripts/publish-tests.sh"

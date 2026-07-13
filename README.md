@@ -91,7 +91,7 @@ The test report is available from the `reports` directory. See [reports](./repor
 Build as follows:
 
 ```bash
-docker build . -t trade-imports-gmr-perf-tests
+docker build . -t trade-imports-gmr-perf-tests --secret id=DEFRA_NUGET_PAT
 ```
 
 Run as follows:

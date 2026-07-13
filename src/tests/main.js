@@ -1,7 +1,7 @@
 import {env} from '../config/environment.js';
 import {profile} from '../config/profiles.js';
 import {customsDeclarations, importPreNotifications} from '../data/loader.js';
-import {htmlReport} from '../lib/k6-reporter-3.0.3.js';
+import {htmlReport} from '../lib/k6-reporter-3.0.4.js';
 import {textSummary} from '../lib/k6-summary-0.1.0.js';
 import {check, group} from 'k6';
 import encoding from 'k6/encoding';
