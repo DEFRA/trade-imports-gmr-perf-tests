@@ -25,6 +25,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
 
+      # Remove this step and update workflow when PR is merged: https://github.com/DEFRA/cdp-build-action/pull/120
       - name: Update NuGet.config
         run: |
           dotnet nuget remove source defra
