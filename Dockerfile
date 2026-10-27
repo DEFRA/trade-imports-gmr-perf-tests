@@ -19,7 +19,7 @@ USER root
 RUN apk add --no-cache \
   aws-cli \
   curl \
-  nodejs~24 \
+  "nodejs>24.1.1" \
   npm
 
 USER k6
