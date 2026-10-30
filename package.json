@@ -4,6 +4,9 @@
   "description": "Performance tests for Trade Imports GMR services.",
   "license": "OGL-UK-3.0",
   "author": "Defra DDTS",
+  "engines": {
+    "node": "^24.1.2"
+  },
   "scripts": {
     "format": "npx prettier --write 'src/**/*.js' '**/*.{js,md,json,config.js}'",
     "format:check": "npx prettier --check 'src/**/*.js' '**/*.{js,md,json,config.js}'",
